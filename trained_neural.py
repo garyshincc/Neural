@@ -1,13 +1,13 @@
 import numpy as np
 from scipy import optimize
 
-# input is number of hours played, and pounds of food eaten
-trainX = np.array(([1, 10],[2,10],[3,10],[6,3]), dtype=float)
-# output is weight difference from last day
-trainY = np.array(([80],[85],[90],[89]),dtype=float)
+# input is number of hours studied, on facebook, eating, and sleeping
+trainX = np.array(([1, 3, 2, 8],[2, 1, 1,10],[5, 0.5, 1.5,7],[3, 1, 3, 8]), dtype=float)
+# output is expected test mark
+trainY = np.array(([80],[85],[92],[74]),dtype=float)
 
 
-testX = np.array(([3,7],[2,10],[5,5],[4.5,7.5]), dtype=float)
+testX = np.array(([3,3,4,6],[2,0,1,10],[5,5,1,5],[4.5,2.5,2,7.5]), dtype=float)
 testY = np.array(([70],[89],[85],[75]), dtype = float)
 
 
@@ -20,7 +20,7 @@ trainY = trainY/100.
 class Neural_Network(object):
 	def __init__(self, Lambda = 0):
 		# we have num hours of workout and num calories
-		self.inputLayerSize = 2
+		self.inputLayerSize = 4
 		self.outputLayerSize = 1
 		self.firstLayerSize = 3
 		self.secondLayerSize = 3
@@ -140,9 +140,11 @@ T.train(trainX,trainY,testX,testY)
 
 
 study = raw_input('How many hours did you study?: ')
+facebook = raw_input('How many hours were you on facebook?: ')
+eat = raw_input('How many hours did you spend eating?: ')
 sleep = raw_input('How many hours did you sleep?: ')
 
-testInput = np.array(([study,sleep]),dtype=float)
+testInput = np.array(([study,facebook,eat,sleep]),dtype=float)
 
 print "your next test score will be: " + str(nn.forward(testInput))
 
