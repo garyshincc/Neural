@@ -6,20 +6,18 @@ trainX = np.array(([1, 3, 2, 8],[2, 1, 1,10],[5, 0.5, 1.5,7],[3, 1, 3, 8]), dtyp
 # output is expected test mark
 trainY = np.array(([80],[85],[92],[74]),dtype=float)
 
-
 testX = np.array(([3,3,4,6],[2,0,1,10],[5,5,1,5],[4.5,2.5,2,7.5]), dtype=float)
 testY = np.array(([70],[89],[85],[75]), dtype = float)
 
-
 testX = testX/np.amax(testX, axis=0)
-testY = testY/np.amax(testY, axis=0)
-
+testY = testY/100.0
 trainX = trainX/np.amax(trainX, axis=0)
-trainY = trainY/100.
+trainY = trainY/100.0
 
 class Neural_Network(object):
 	def __init__(self, Lambda = 0):
 		# we have num hours of workout and num calories
+		# a 4 layer network
 		self.inputLayerSize = 4
 		self.outputLayerSize = 1
 		self.firstLayerSize = 3
@@ -32,6 +30,7 @@ class Neural_Network(object):
 		self.Lambda = Lambda
 
 	# the propagation
+	# done
 	def forward(self, x):
 		# synapse
 		self.z2 = np.dot(x, self.W1)
@@ -42,15 +41,18 @@ class Neural_Network(object):
 		# node
 		self.a3 = self.sigmoid(self.z3)
 		# synapse
+		print self.z3;
 		self.z4 = np.dot(self.a3, self.W3)
 		# node (last node)
 		yHat = self.sigmoid(self.z4)
 		return yHat
 
+	# done
 	def costFunction(self, x, y):
 		self.yHat = self.forward(x)
 		J = 0.5*sum((y-self.yHat)**2)/x.shape[0] + (self.Lambda/2)*(np.sum(self.W1**2)+np.sum(self.W2**2)+np.sum(self.W3**2))
 		return J
+
 
 	def costFunctionPrime(self, x, y):
 		self.yHat = self.forward(x)
@@ -63,7 +65,6 @@ class Neural_Network(object):
 
 		delta2 = np.dot(delta3, self.W2.T) * self.sigmoidPrime(self.z2)
 		dJdW1 = np.dot(x.T, delta2) + self.Lambda*self.W1
-
 		return dJdW1, dJdW2, dJdW3
 
 	def sigmoid(self, z):
@@ -125,7 +126,7 @@ class trainer(object):
 
 		params0 = self.N.getParams()
 
-		options = {'maxiter':200, 'disp': True}
+		options = {'maxiter':500, 'disp': True}
 		_res = optimize.minimize(self.costFunctionWrapper, params0, \
 			jac = True, method='BFGS', args=(trainX,trainY), \
 			options = options, callback=self.callBackF)
@@ -146,7 +147,7 @@ sleep = raw_input('How many hours did you sleep?: ')
 
 testInput = np.array(([study,facebook,eat,sleep]),dtype=float)
 
-print "your next test score will be: " + str(nn.forward(testInput))
+print "your next test score will be: " + str(nn.forward(testInput) * 100)
 
 
 

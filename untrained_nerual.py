@@ -27,16 +27,22 @@ class Neural_Network(object):
 	def forward(self, x):
 		# synapse
 		self.z2 = np.dot(x, self.W1)
+
 		# node
 		self.a2 = self.sigmoid(self.z2)
+
 		# synapse
 		self.z3 = np.dot(self.a2, self.W2)
+
 		# node
 		self.a3 = self.sigmoid(self.z3)
+
 		# synapse
 		self.z4 = np.dot(self.a3, self.W3)
+
 		# node (last node)
 		yHat = self.sigmoid(self.z4)
+		
 		return yHat
 
 	def sigmoid(self, z):
