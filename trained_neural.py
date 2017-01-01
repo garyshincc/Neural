@@ -41,7 +41,6 @@ class Neural_Network(object):
 		# node
 		self.a3 = self.sigmoid(self.z3)
 		# synapse
-		print self.z3;
 		self.z4 = np.dot(self.a3, self.W3)
 		# node (last node)
 		yHat = self.sigmoid(self.z4)
@@ -148,16 +147,6 @@ sleep = raw_input('How many hours did you sleep?: ')
 testInput = np.array(([study,facebook,eat,sleep]),dtype=float)
 
 print "your next test score will be: " + str(nn.forward(testInput) * 100)
-
-
-
-
-
-
-
-
-
-
 
 
 

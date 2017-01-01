@@ -4,7 +4,6 @@ import random
 class Neuron():
 	def __init__(self):
 		self.weight = random.uniform(-1, 1)
-		self.bias = random.uniform(-1, 1)
 
 	def propagate(self,_input):
 		_input = _input / 100.0
@@ -20,7 +19,8 @@ class Neuron():
 		return 1/(1+np.exp(-z))
 
 myNeuron = Neuron()
-
-print myNeuron.propagate(50)
-
-
+userin = raw_input("what would you like to propagate? (0 to 100) ")
+try:
+	print myNeuron.propagate(int(userin))
+except:
+	print "wrong type lmao."
