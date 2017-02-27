@@ -1,0 +1,235 @@
+Deep learning for NLP
+
+Very large datasets
+	input data and a label
+	machine learning algorithm to look at the pairs
+	predict label with data
+
+	neural networks and deep learning
+
+	clean patterns with large amounts of data
+
+	MNIST: National Institute of Standards and Technology database
+	recognize handwritten digits
+
+	data: handwritten 5
+	label: 5
+
+	Translation product.
+
+	TensorFlow: library for numerical computation using data flow graphs
+
+	Name entity recognition
+
+	task: classify words such as:
+	1. person
+	2. organization
+	3. location
+	4. miscellaneous
+
+Deep learning: large amount of data
+
+Neural Network
+
+1-Layer NN
+1. Linear Combination of Inputs
+2. Nonlinearity (tanh) (sigmoid)
+
+input: x1,x2,x3,x4,x5
+output: h1,h2,h3,h4
+
+code:
+	//
+	h = tf.tanh(tf.matmul(x,weights) + bias)
+	// x and weights -> matmul -> bais -> plus -> tanh -> h
+
+	session.run(h, feed_dict={ 
+		x: [-0.7, 0.3, 0.2, -0.1, 0.9]
+	})
+:code
+
+inputlayer
+XXXXXXXXXX
+LAYER1
+XXXXXX
+LAYER2
+XXXXXX
+outputlayer, final layer, projection layer
+
+each layer linear combination
+followed by non-linearity
+
+Name Entity Recognition
+
+1. Represent each word as a 300 dimensional vector
+	large dimension gives large flexibility in the word relation with other words.
+2. Use a neural netowkr to transform word vectors into predicted class probabilities
+
+// fn: word-vectors -> class-probabilities -> loss
+
+3. Use Gradient Descent to minimize the loss
+
+code:
+	optimizer = tf.train.GradientDescentOptimizer()
+	train_op = optimizer.minimize(loss)
+	session.run(train_op)
+:code
+
+initialize randomly.
+
+i.e.
+	The cat chased after the ______.
+	mouse!
+
+	people have done this training with all of wikipedia etc...
+	"king" vector - "queen" vector
+	"male" vector - "female" vector
+
+1. Construct neural network
+	- multiple layers of linear combination followed by non-linearity
+	- a final projection layer to give logits
+2. Train neural network
+	- gradient descent
+3. Recognize name entities
+
+Questions:
+what is a loss functions and what is the meaning of the derivatives?
+	- take a batch of the training data, and feed it in the input
+
+udacity intro ai
+
+
+////////////////////
+
+Definitions
+Weights and Biases
+1. each node has a bias
+2. each edge has a weight
+-> this makes the firing of the neuron different
+3. cost - difference between the known output and the experimental output
+
+pattern complexity
+- simple - svm, logic regression
+- moderate - neural nets
+- complex - deep neural nets
+
+Deep nets break it down to simpler nets
+
+Procedure of Deep Net Classification example
+Layer 1: The computer identifies pixels of light and dark.
+Layer 2: The computer learns to identify edges and simple shapes.
+Layer 3: The computer learns to identify more complex shapes and objects.
+Layer 4: The computer learns which shapes and objects can be used to define a human face.
+
+CPU vs GPU
+-> GPU wins!
+
+Unlabelled data
+-> Unsupervised learning,
+
+Labelled data
+-> Supervised learning
+	- Text Processing: RNN, Recurrent Neural Tensor Network
+	- Image Network: Deep Belief, or Convolutional Net
+	- Object Recognition: Convolutional Netowrk or RNTN,
+	- Speech Recognition: Use recurrent Networks
+
+
+Generally Deep Belief Networks and Multi Lauer Perceptrons,  Rectified Linear Units (DBN, MLP, RELU), are good for classification
+
+For time series analysis, use Recurrent nets
+
+When training, you're constantly calculated a cost value.
+Cost is lowered slightly with adjustment in weights and biases
+
+Issue: Vanition Gradient
+Early layers are hard to train. They take the longest time. -> backprop in deep nets are hard.
+
+3 breakthrough papers by Geoff Hinton, Lecun, and Benjio, 2006 and 2007.
+
+Restricted Boltzmann Machine (RBM)
+	- Automatically find patterns in our data by reconstruct the input.
+RMB is a shallow 2 layer net, with a visible layer and a hidden layer. Each node in the visible layer is connected to every hidden layer. Its called restriction because no two nodes in the same layer dont share a connection
+
+Training
+1. Forward pass -> 1 weight and 1 bias to the hidden layer and hidden layer can activate or not
+2. Backward pass -> individual weight and overall bias
+3. KL Divergence -> Compare to actual to recreation
+
+	- Data doesnt need to be labelled.
+	- Also called Auto-Encoders
+
+Deep Belief Nets
+1. By combining RMBs together with a clever training algorithm
+2. Can be viewed as a stack of RMBs
+3. The first net is trained with the next layer, and repeats with their respective forward.
+4. Finish training with labels and supervision
+5. Need small labelled datasets
+
+Convolutional Nets
+1. Machine vision projects.
+2. ImageNet Challenge
+
+	- Convolutional Layer - Technical operation of convolution.
+	- Filter is able to detect if given pattern occurs or not
+	- CNN has the flashlight structure -> each layer shines on the filter.
+	- RELU and POOLING. Each layer in the convolutional layer is connected to the RELU. 
+	- CNN trained by back prop.
+	- Pooling focuses only the important parts.
+	- Fully connected layer at the end
+
+	- Conv->RELU->Conv->RELU->Pooling->FC
+
+Recurrent Nets
+- Forcasting Engine
+Structure->
+	In a feed forward, input goes to output 1 layer at the time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
