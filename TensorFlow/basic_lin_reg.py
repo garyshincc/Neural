@@ -7,6 +7,8 @@ def model(features, labels, mode):
 	weight = tf.get_variable("W", [1], dtype=tf.float64)
 	bias = tf.get_variable("b", [1], dtype=tf.float64)
 	y = weight * features['x'] + bias
+	x_train = [1,2,3,4]
+	y_train = [0,-1,-2,-3]
 
 	loss = tf.reduce_sum(tf.square(y - labels))
 
