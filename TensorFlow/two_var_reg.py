@@ -27,7 +27,9 @@ for i in range(10000):
 
 # evaluate training accuracy
 curr_w1, curr_w2, curr_b, curr_loss  = sess.run([weight1, weight2, b, loss], {x:x_train, y:y_train})
-print ("w1: %s w2: %s b: %s loss: %s"%(curr_w1, curr_w2, curr_b, curr_loss))
+print ("Adam optimizer running y = w2 * (w1 * x + b)")
+print ("weight1: %s weight2: %s bias: %s loss: %s"%(curr_w1, curr_w2, curr_b, curr_loss))
 results = sess.run(linear_model, {x:[1,2,3,4]})
 
-print results
+print ("expected: " + str(2.5) + " " + str(3.5) + " " + str(4.5) + " " + str(5.5))
+print (results)
