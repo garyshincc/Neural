@@ -9,7 +9,7 @@ class Sine():
         self.freq = 2
         self.amp = 1
         self.x = np.arange(0, 10000)
-        wf = (2 * np.pi * self.freq * self.x / self.period) 
+        wf = (2 * np.pi * self.freq * self.x / self.period)
         self.y = self.amp * np.sin(wf)
 
     def mutate(self):
@@ -27,6 +27,8 @@ class Sine():
         return mutated_sine
 
     def heuristical_mutate(self, max_cost, min_cost, cost):
+        if (max_cost == 0 or max_cost == 1):
+            max_cost = cost + 1
         cost = cost / (max_cost * math.log(max_cost))
 
         if cost == 0:
@@ -49,6 +51,8 @@ class Sine():
         return mutated_sine
 
     def mutate_freq(self, max_freq_cost, cost):
+        if (max_freq_cost == 0 or max_freq_cost == 1):
+            max_freq_cost = cost + 2
         cost = cost / (max_freq_cost * math.log(max_freq_cost))
         l = 1 - cost
         h = 1 + cost
@@ -64,6 +68,8 @@ class Sine():
         return mutated_sine
 
     def mutate_amp(self, max_amp_cost, cost):
+        if (max_amp_cost == 0 or max_amp_cost == 1):
+            max_amp_cost = cost + 2
         cost = cost / (max_amp_cost * math.log(max_amp_cost))
         l = 1 - cost
         h = 1 + cost
@@ -83,6 +89,12 @@ class Sine():
 
     def get_amp(self):
         return self.amp
+
+    def get_dc(self):
+        return self.dc
+
+    def get_phase(self):
+        return self.phase
 
 class MakeBetterBabies():
     def __init__(self, ugly_duck, beautiful_swan):
@@ -184,8 +196,6 @@ class MakeBetterBabies():
                 break
 
         # freq second
-        print (self.ugly_duck.freq)
-        print (self.ugly_duck.amp)
         max_freq_cost = freq_cost(self.ugly_duck, self.beautiful_swan)
         curr_freq_cost = freq_cost(self.ugly_duck, self.beautiful_swan)
         while(num_runs < 200 and total_runs < 10000):
@@ -223,7 +233,6 @@ def freq_cost(ugly_duck, beautiful_swan):
 
 def amp_cost(ugly_duck, beautiful_swan):
     return abs(ugly_duck.get_amp() - beautiful_swan.get_amp())
-
 
 def run():
     target_sine_wave = Sine()
@@ -294,6 +303,7 @@ def run_with_individual_descent():
     plt.plot(best_bird.x, best_bird.y)
     plt.title("Sine Wave")
     plt.show()
+
 
 print ("running with normal stochastic descent")
 run()
